@@ -102,9 +102,11 @@ class HomeScreen extends StatelessWidget {
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: 15, vertical: 7)),
                       onSubmitted: (searchQuery) {
-                        context
-                            .read<ImagesProvider>()
-                            .fetchImages(searchQuery, isNewSearch: true);
+                        if (searchQuery.isNotEmpty) {
+                          context
+                              .read<ImagesProvider>()
+                              .fetchImages(searchQuery, isNewSearch: true);
+                        }
                       },
                     ),
                   ),
