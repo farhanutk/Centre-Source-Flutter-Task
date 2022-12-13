@@ -1,4 +1,6 @@
+import 'package:centre_source_flutter_task/images_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'home_screen.dart';
 
@@ -17,7 +19,9 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: ChangeNotifierProvider(
+          create: (BuildContext context) => ImagesProvider(),
+          child: HomeScreen()),
     );
   }
 }
