@@ -11,7 +11,6 @@ class ImageFullscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
           onVerticalDragDown: (details) => Navigator.of(context).pop(),
           child: Center(child: Hero(tag: tag, child: Image.network(imageUrl)))),
     );
