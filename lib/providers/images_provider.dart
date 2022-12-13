@@ -1,4 +1,4 @@
-import 'package:centre_source_flutter_task/database_services.dart';
+import 'package:centre_source_flutter_task/services/database_services.dart';
 import 'package:flutter/cupertino.dart';
 
 class ImagesProvider extends ChangeNotifier {

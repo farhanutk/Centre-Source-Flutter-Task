@@ -1,4 +1,5 @@
-import 'package:centre_source_flutter_task/images_provider.dart';
+import 'package:centre_source_flutter_task/providers/images_provider.dart';
+import 'package:centre_source_flutter_task/screens/image_fullscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:provider/provider.dart';
@@ -29,23 +30,40 @@ class HomeScreen extends StatelessWidget {
                           child: ListView.builder(
                             itemCount:
                                 context.watch<ImagesProvider>().images.length,
-                            itemBuilder: (context, index) => Container(
-                              margin: const EdgeInsets.only(bottom: 3),
-                              child: Image.network(
-                                context.watch<ImagesProvider>().images[index]
-                                    ["largeImageURL"],
-                                loadingBuilder:
-                                    (context, child, loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    return child;
-                                  }
-                                  return Container(
-                                    color: Colors.grey[400],
-                                    height: 300,
-                                  );
-                                },
-                              ),
-                            ),
+                            itemBuilder: (context, index) {
+                              final String imageUrl = context
+                                  .watch<ImagesProvider>()
+                                  .images[index]["largeImageURL"];
+
+                              return Container(
+                                margin: const EdgeInsets.only(bottom: 3),
+                                child: GestureDetector(
+                                  onTap: () => Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                    builder: (context) => ImageFullscreen(
+                                      imageUrl: imageUrl,
+                                      tag: 'image$index',
+                                    ),
+                                  )),
+                                  child: Hero(
+                                    tag: 'image$index',
+                                    child: Image.network(
+                                      imageUrl,
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        }
+                                        return Container(
+                                          color: Colors.grey[400],
+                                          height: 300,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         )
                       : context.watch<ImagesProvider>().isLoading
